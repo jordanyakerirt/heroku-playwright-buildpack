@@ -37,20 +37,22 @@ libnss3
 libxss1
 fonts-noto-color-emoji
 libgbm1
-libatk-bridge2.0-0
 libxkbcommon0
 libxrandr2
-libatspi2.0-0
 libxshmfence-dev
 EOF
 
-		# If stack is heroku-24, install libasound2t64
+		# If stack is heroku-24, install *t64
 		if [[ "$STACK" == "heroku-24" ]]; then
 			cat << EOF >>$build_tmpdir/Aptfile
+libatk-bridge2.0-0t64
+libatspi2.0-0t64
 libasound2t64
 EOF
 		else
 			cat << EOF >>$build_tmpdir/Aptfile
+libatk-bridge2.0-0
+libatspi2.0-0
 libasound2
 EOF
 		fi
@@ -76,13 +78,25 @@ libgdk-pixbuf2.0-0
 libcairo-gobject2
 libpulse0
 libusb-1.0-0
-libatk1.0-0
 libxcomposite1
 libxdamage1
 libxfixes3
 libgtk-3-0
 EOF
+
+		# If stack is heroku-24, install *t64
+		if [[ "$STACK" == "heroku-24" ]]; then
+			cat << EOF >>$build_tmpdir/Aptfile
+libatk1.0-0t64
+EOF
+		else
+			cat << EOF >>$build_tmpdir/Aptfile
+libatk1.0-0
+EOF
+		fi
 	fi
+
+
 
 	case "$STACK" in
 	  "heroku-18")
